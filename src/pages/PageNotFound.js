@@ -1,9 +1,9 @@
 import PageNotFoundImage from "../assets/page-not-found.png";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useTitle } from "../hooks/useTitle";
 
-export const PageNotFound = ({title}) => {
-    const pageTitle = useTitle(title);
+export const PageNotFound = ({ title }) => {
+    useTitle(title);
     return (
         <main>
             <section className="flex justify-center py-7">

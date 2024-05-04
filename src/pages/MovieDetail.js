@@ -7,14 +7,26 @@ export const MovieDetail = () => {
     const params = useParams();
     const [movie, setMovie] = useState({});
     const movieImage = movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : Logo;
-    const movieDetailUrl = `https://api.themoviedb.org/3/movie/${params.id}?api_key=21a87642d86308535445f416e659fd49`;
+    const movieDetailUrl = `https://api.themoviedb.org/3/movie/${params.id}`;
+    const requestOptions = {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            Authorization: `Bearer ${process.env.REACT_APP_API_AUTH_TOKEN}`
+        },
+        referrer: 'https://yourmoviemate.netlify.app',
+        referrerPolicy: 'strict-origin-when-cross-origin',
+        body: null,
+        mode: 'cors',
+        credentials: 'omit'
+    };
     useEffect(() => {
-        async function fetchMovieDetail() {
-            const response = await fetch(movieDetailUrl);
+        async function fetchMovieDetail(url, options) {
+            const response = await fetch(url, options);
             const jsonData = await response.json();
             setMovie(jsonData);
         };
-        fetchMovieDetail();
+        fetchMovieDetail(movieDetailUrl, requestOptions);
     }, [movieDetailUrl]);
     useTitle(movie.title);
     return (
